@@ -1,12 +1,12 @@
-import FormFirstScreen from "./components/formFirstScreen"
-import style from "./App.module.css";
+import { Flex } from "@chakra-ui/react";
+import Form from "./components/ui/Form";
 
 function App() {
 
   return (
-    <main className={style.main}>
-      <FormFirstScreen />
-    </main>
+    <Flex justifyContent="center" alignItems="center" h="100vh">
+      <Form />
+    </Flex>
   )
 }
 
