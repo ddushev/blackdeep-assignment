@@ -20,7 +20,11 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { z } from "zod";
+import FormDataSchema from '../../lib/schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
+type FormFields = z.infer<typeof FormDataSchema>
 
 const steps = [
   { title: 'First', description: 'Personal Info' },
