@@ -19,7 +19,7 @@ import {
   Text,
   Center,
 } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from "zod";
 import FormDataSchema from '../../lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -27,8 +27,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 type FormFields = z.infer<typeof FormDataSchema>
 
 const steps = [
-  { title: 'First', description: 'Personal Info' },
-  { title: 'Second', description: 'Avatar' },
+  { title: 'First', description: 'Personal Info', fields: ["firstName", "lastName", "password", "repeatPassword", "interests"] },
+  { title: 'Second', description: 'Avatar', fields: ["avatar"] },
   { title: 'Third', description: 'Congratulations' },
 ]
 
@@ -37,9 +37,11 @@ function Form() {
     index: 0,
     count: steps.length,
   })
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, trigger, formState: { errors } } = useForm<FormFields>({
+    resolver: zodResolver(FormDataSchema),
+  });
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
     console.log(data);
   };
 
@@ -49,7 +51,14 @@ function Form() {
     }
   }
 
+  type FieldName = keyof FormFields
+
   const onNextClick = async () => {
+    const fields = steps[activeStep].fields;
+    const areValid = await trigger(fields as FieldName[], { shouldFocus: true });
+    if (!areValid) {
+      return;
+    }
     if (activeStep < 2) {
       setActiveStep(activeStep + 1);
     }
@@ -82,27 +91,35 @@ function Form() {
       <form onSubmit={handleSubmit(onSubmit)}>
         {activeStep === 0 && (
           <>
-            <FormControl mb="20px">
+            <FormControl mb="20px" isRequired>
               <FormLabel>First Name:</FormLabel>
               <Input type="text" {...register('firstName')} />
-              {errors.firstName && <span>This field is required</span>}
+              {errors.firstName?.message && (
+                <Text color="red" mt="10px">{errors.firstName?.message}</Text>
+              )}
             </FormControl>
-            <FormControl mb="20px">
+            <FormControl mb="20px" isRequired>
               <FormLabel>Last Name:</FormLabel>
               <Input type="text" {...register('lastName')} />
-              {errors.lastName && <span>This field is required</span>}
+              {errors.lastName?.message && (
+                <Text color="red" mt="10px">{errors.lastName?.message}</Text>
+              )}
             </FormControl>
-            <FormControl mb="20px">
+            <FormControl mb="20px" isRequired>
               <FormLabel>Password:</FormLabel>
               <Input type="password" {...register('password')} />
-              {errors.password && <span>This field is required</span>}
+              {errors.password?.message && (
+                <Text color="red" mt="10px">{errors.password?.message}</Text>
+              )}
             </FormControl>
-            <FormControl mb="20px">
+            <FormControl mb="20px" isRequired>
               <FormLabel>Confirm Password:</FormLabel>
               <Input type="password" {...register('confirmPassword')} />
-              {errors.confirmPassword && <span>This field is required</span>}
+              {errors.confirmPassword?.message && (
+                <Text color="red" mt="10px">{errors.confirmPassword?.message}</Text>
+              )}
             </FormControl>
-            <FormControl mb="20px" >
+            <FormControl mb="20px" isRequired>
               <FormLabel>Interests:</FormLabel>
               <Flex direction="column">
                 <Checkbox {...register('interests')} id="sports" value="Sports">Sports</Checkbox>
@@ -110,12 +127,14 @@ function Form() {
                 <Checkbox {...register('interests')} id="dancing" value="Dancing">Dancing</Checkbox>
                 <Checkbox {...register('interests')} id="games" value="Games">Games</Checkbox>
               </Flex>
-              {errors.interests && <span>Please select at least one interest</span>}
+              {errors.interests?.message && (
+                <Text color="red" mt="10px">{errors.interests?.message}</Text>
+              )}
             </FormControl>
           </>
         )}
         {activeStep === 1 && (
-          <FormControl mb="20px">
+          <FormControl mb="20px" isRequired>
             <FormLabel>Upload avatar:</FormLabel>
             <Input type="file" {...register('avatar')} />
             {errors.avatar && <span>This field is required</span>}
