@@ -47,9 +47,6 @@ function Form() {
 
   const onNextClick = async () => {
     if (activeStep < 2) {
-      if (activeStep === 2) {
-        await handleSubmit(onSubmit)();
-      }
       setActiveStep(activeStep + 1);
     }
   }
