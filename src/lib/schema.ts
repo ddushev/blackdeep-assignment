@@ -1,18 +1,17 @@
 import { z } from "zod";
 
-const namesRegEx = /^[A-Za-z]+$/;
+const namesRegEx = /^[a-zA-Z]{3,}$/;
 
 const FormDataSchema = z.object({
   firstName: z
     .string()
     .trim()
-    .min(3, "First name should be at least 3 characters long")
-    .regex(namesRegEx, "First name should consists only of letters"),
+    .regex(namesRegEx, "First name should consists of minimum 3 letters"),
   lastName: z
     .string()
     .trim()
-    .min(3, "Last name should be at least 3 characters long")
-    .regex(namesRegEx, "Last name should consists only of letters"),
+    .regex(namesRegEx, "Last name should consists of minimum 3 letters"),
+  password: z.string().trim(),
 });
 
 export default FormDataSchema;
