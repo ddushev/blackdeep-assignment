@@ -3,7 +3,14 @@ import { z } from "zod";
 const namesRegex = /^[a-zA-Z]{3,}$/;
 const passwordRegex =
   /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_+=])[A-Za-z0-9!@#$%^&*()-_+=]{8,}$/;
-const interestsValues = ["Sports", "Music", "Dancing", "Games"];
+
+const MAX_FILE_SIZE = 5000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
 
 const FormDataSchema = z
   .object({
@@ -30,13 +37,20 @@ const FormDataSchema = z
         (interests) => interests.length <= 2,
         "Please selected at least one and no more than 2 interests"
       ),
-    avatar: z.object({
-      // name: z.string(),
-      // type: z.string().refine((value) => value.startsWith("image/"), {
-      //   message: "Only image files are allowed",
-      // }),
-      // size: z.number().max(500000, "File size should not exceed 500KB"),
-    }),
+    avatar: z
+      .any()
+      .refine(
+        (file) => file && file[0]?.name.length >= 1,
+        "Please upload an .jpg, jpeg, .png or .webp image with maximum size of 5MB"
+      )
+      .refine(
+        (file) => file && file[0]?.size <= MAX_FILE_SIZE,
+        "Max image size is 5MB"
+      )
+      .refine(
+        (file) => file && ACCEPTED_IMAGE_TYPES.includes(file[0]?.type),
+        "Only .jpg, .jpeg, .png and .webp formats are supported"
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
