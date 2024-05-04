@@ -18,6 +18,8 @@ import {
   useSteps,
   Center,
   FormErrorMessage,
+  CheckboxGroup,
+  Stack,
 } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from "zod";
@@ -113,12 +115,14 @@ function Form() {
             </FormControl>
             <FormControl mb="20px" isRequired isInvalid={!!errors.interests}>
               <FormLabel>Interests:</FormLabel>
-              <Flex direction="column">
-                <Checkbox {...register('interests')} id="sports" value="Sports">Sports</Checkbox>
-                <Checkbox {...register('interests')} id="music" value="Music">Music</Checkbox>
-                <Checkbox {...register('interests')} id="dancing" value="Dancing">Dancing</Checkbox>
-                <Checkbox {...register('interests')} id="games" value="Games">Games</Checkbox>
-              </Flex>
+              <CheckboxGroup>
+                <Stack direction={["column"]}>
+                  <Checkbox {...register('interests')} id="sports" value="Sports">Sports</Checkbox>
+                  <Checkbox {...register('interests')} id="music" value="Music">Music</Checkbox>
+                  <Checkbox {...register('interests')} id="dancing" value="Dancing">Dancing</Checkbox>
+                  <Checkbox {...register('interests')} id="games" value="Games">Games</Checkbox>
+                </Stack>
+              </CheckboxGroup>
               <FormErrorMessage color="red" mt="10px">{errors.interests?.message}</FormErrorMessage>
             </FormControl>
           </>
