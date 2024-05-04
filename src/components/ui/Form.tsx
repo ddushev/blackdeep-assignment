@@ -27,7 +27,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 type FormFields = z.infer<typeof FormDataSchema>
 
 const steps = [
-  { title: 'First', description: 'Personal Info', fields: ["firstName", "lastName", "password", "repeatPassword", "interests"] },
+  { title: 'First', description: 'Personal Info', fields: ["firstName", "lastName", "password", "confirmPassword", "interests"] },
   { title: 'Second', description: 'Avatar', fields: ["avatar"] },
   { title: 'Third', description: 'Congratulations' },
 ]
@@ -91,33 +91,27 @@ function Form() {
       <form onSubmit={handleSubmit(onSubmit)}>
         {activeStep === 0 && (
           <>
-            <FormControl mb="20px" isRequired isInvalid={!!errors.firstName?.message}>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.firstName}>
               <FormLabel>First Name:</FormLabel>
               <Input type="text" {...register('firstName')} />
               <FormErrorMessage color="red" mt="10px">{errors.firstName?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl mb="20px" isRequired isInvalid={!!errors.lastName?.message}>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.lastName}>
               <FormLabel>Last Name:</FormLabel>
               <Input type="text" {...register('lastName')} />
-              {errors.lastName?.message && (
-                <FormErrorMessage color="red" mt="10px">{errors.lastName?.message}</FormErrorMessage>
-              )}
+              <FormErrorMessage color="red" mt="10px">{errors.lastName?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl mb="20px" isRequired isInvalid={!!errors.password?.message}>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.password}>
               <FormLabel>Password:</FormLabel>
               <Input type="password" {...register('password')} />
-              {errors.password?.message && (
-                <FormErrorMessage color="red" mt="10px">{errors.password?.message}</FormErrorMessage>
-              )}
+              <FormErrorMessage color="red" mt="10px">{errors.password?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl mb="20px" isRequired isInvalid={!!errors.confirmPassword?.message}>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.confirmPassword}>
               <FormLabel>Confirm Password:</FormLabel>
               <Input type="password" {...register('confirmPassword')} />
-              {errors.confirmPassword?.message && (
-                <FormErrorMessage color="red" mt="10px">{errors.confirmPassword?.message}</FormErrorMessage>
-              )}
+              <FormErrorMessage color="red" mt="10px">{errors.confirmPassword?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl mb="20px" isRequired isInvalid={!!errors.interests?.message}>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.interests}>
               <FormLabel>Interests:</FormLabel>
               <Flex direction="column">
                 <Checkbox {...register('interests')} id="sports" value="Sports">Sports</Checkbox>
@@ -125,17 +119,15 @@ function Form() {
                 <Checkbox {...register('interests')} id="dancing" value="Dancing">Dancing</Checkbox>
                 <Checkbox {...register('interests')} id="games" value="Games">Games</Checkbox>
               </Flex>
-              {errors.interests?.message && (
-                <FormErrorMessage color="red" mt="10px">{errors.interests?.message}</FormErrorMessage>
-              )}
+              <FormErrorMessage color="red" mt="10px">{errors.interests?.message}</FormErrorMessage>
             </FormControl>
           </>
         )}
         {activeStep === 1 && (
-          <FormControl mb="20px" isRequired isInvalid={!!errors.avatar?.message}>
+          <FormControl mb="20px" isRequired isInvalid={!!errors.avatar}>
             <FormLabel>Upload avatar:</FormLabel>
             <Input type="file" {...register('avatar')} />
-            {errors.avatar && <span>This field is required</span>}
+            <FormErrorMessage color="red" mt="10px">{errors.avatar?.message}</FormErrorMessage>
           </FormControl>
         )}
 
