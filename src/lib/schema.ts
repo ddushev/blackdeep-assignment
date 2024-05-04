@@ -12,6 +12,7 @@ const FormDataSchema = z.object({
     .trim()
     .regex(namesRegEx, "Last name should consists of minimum 3 letters"),
   password: z.string().trim(),
+  confirmPassword: z.string().trim(),
 });
 
 export default FormDataSchema;

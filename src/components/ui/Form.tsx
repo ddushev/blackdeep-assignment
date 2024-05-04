@@ -16,8 +16,8 @@ import {
   StepTitle,
   Stepper,
   useSteps,
-  Text,
   Center,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from "zod";
@@ -91,35 +91,33 @@ function Form() {
       <form onSubmit={handleSubmit(onSubmit)}>
         {activeStep === 0 && (
           <>
-            <FormControl mb="20px" isRequired>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.firstName?.message}>
               <FormLabel>First Name:</FormLabel>
               <Input type="text" {...register('firstName')} />
-              {errors.firstName?.message && (
-                <Text color="red" mt="10px">{errors.firstName?.message}</Text>
-              )}
+              <FormErrorMessage color="red" mt="10px">{errors.firstName?.message}</FormErrorMessage>
             </FormControl>
-            <FormControl mb="20px" isRequired>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.lastName?.message}>
               <FormLabel>Last Name:</FormLabel>
               <Input type="text" {...register('lastName')} />
               {errors.lastName?.message && (
-                <Text color="red" mt="10px">{errors.lastName?.message}</Text>
+                <FormErrorMessage color="red" mt="10px">{errors.lastName?.message}</FormErrorMessage>
               )}
             </FormControl>
-            <FormControl mb="20px" isRequired>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.password?.message}>
               <FormLabel>Password:</FormLabel>
               <Input type="password" {...register('password')} />
               {errors.password?.message && (
-                <Text color="red" mt="10px">{errors.password?.message}</Text>
+                <FormErrorMessage color="red" mt="10px">{errors.password?.message}</FormErrorMessage>
               )}
             </FormControl>
-            <FormControl mb="20px" isRequired>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.confirmPassword?.message}>
               <FormLabel>Confirm Password:</FormLabel>
               <Input type="password" {...register('confirmPassword')} />
               {errors.confirmPassword?.message && (
-                <Text color="red" mt="10px">{errors.confirmPassword?.message}</Text>
+                <FormErrorMessage color="red" mt="10px">{errors.confirmPassword?.message}</FormErrorMessage>
               )}
             </FormControl>
-            <FormControl mb="20px" isRequired>
+            <FormControl mb="20px" isRequired isInvalid={!!errors.interests?.message}>
               <FormLabel>Interests:</FormLabel>
               <Flex direction="column">
                 <Checkbox {...register('interests')} id="sports" value="Sports">Sports</Checkbox>
@@ -128,13 +126,13 @@ function Form() {
                 <Checkbox {...register('interests')} id="games" value="Games">Games</Checkbox>
               </Flex>
               {errors.interests?.message && (
-                <Text color="red" mt="10px">{errors.interests?.message}</Text>
+                <FormErrorMessage color="red" mt="10px">{errors.interests?.message}</FormErrorMessage>
               )}
             </FormControl>
           </>
         )}
         {activeStep === 1 && (
-          <FormControl mb="20px" isRequired>
+          <FormControl mb="20px" isRequired isInvalid={!!errors.avatar?.message}>
             <FormLabel>Upload avatar:</FormLabel>
             <Input type="file" {...register('avatar')} />
             {errors.avatar && <span>This field is required</span>}
@@ -143,7 +141,7 @@ function Form() {
 
         {activeStep === 2 && (
           <Center mb="20px">
-            <Text fontSize="3xl">Thanks for registering!</Text>
+            <FormErrorMessage fontSize="3xl">Thanks for registering!</FormErrorMessage>
           </Center>
         )}
         <Flex justifyContent="center" gap="20px">
