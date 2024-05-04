@@ -21,7 +21,7 @@ import {
   CheckboxGroup,
   Stack,
 } from '@chakra-ui/react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FieldError, Merge, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from "zod";
 import FormDataSchema from '../../lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -131,7 +131,7 @@ function Form() {
           <FormControl mb="20px" isRequired isInvalid={!!errors.avatar}>
             <FormLabel>Upload avatar:</FormLabel>
             <Input type="file" {...register('avatar')} />
-            <FormErrorMessage color="red" mt="10px">{errors.avatar?.message}</FormErrorMessage>
+            <FormErrorMessage color="red" mt="10px"> {(errors.avatar as Merge<FieldError, (FieldError | undefined)[]> | undefined)?.message}</FormErrorMessage>
           </FormControl>
         )}
 
