@@ -39,15 +39,18 @@ function Form() {
     index: 0,
     count: steps.length,
   })
-  const { register, handleSubmit, trigger, formState: { errors } } = useForm<FormFields>({
+  const { register, handleSubmit, trigger, getValues, formState: { errors } } = useForm<FormFields>({
     resolver: zodResolver(FormDataSchema),
   });
+
+  const formValues = getValues();
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     console.log(data);
   };
 
   const onPrevClick = () => {
+    console.log(formValues)
     if (activeStep >= 1) {
       setActiveStep(activeStep - 1);
     }
@@ -65,7 +68,6 @@ function Form() {
       setActiveStep(activeStep + 1);
     }
   }
-
 
   return (
     <Box w="480px">
@@ -115,7 +117,7 @@ function Form() {
             </FormControl>
             <FormControl mb="20px" isRequired isInvalid={!!errors.interests}>
               <FormLabel>Interests:</FormLabel>
-              <CheckboxGroup>
+              <CheckboxGroup value={formValues.interests}>
                 <Stack direction={["column"]}>
                   <Checkbox {...register('interests')} id="sports" value="Sports">Sports</Checkbox>
                   <Checkbox {...register('interests')} id="music" value="Music">Music</Checkbox>
