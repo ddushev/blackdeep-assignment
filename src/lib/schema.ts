@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const namesRegex = /^[a-zA-Z]{3,}$/;
+const namesRegex = /^[\p{L}]{3,}$/u;
 const passwordRegex =
   /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()-_+=])[A-Za-z0-9!@#$%^&*()-_+=]{8,}$/;
 
@@ -22,13 +22,11 @@ const FormDataSchema = z
       .string()
       .trim()
       .regex(namesRegex, "Last name should consists of minimum 3 letters"),
-    password: z
-      .string()
-      .trim()
-      .regex(
-        passwordRegex,
-        "Password should contain at least 8 characters, including at least one uppercase letter, one digit, and one symbol"
-      ),
+    password: z.string().trim(),
+    // .regex(
+    //   passwordRegex,
+    //   "Password should contain at least 8 characters, including at least one uppercase letter, one digit, and one symbol"
+    // ),
     confirmPassword: z.string().trim(),
     interests: z
       .array(z.enum(["Sports", "Music", "Dancing", "Games"]), {
