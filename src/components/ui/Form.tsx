@@ -20,6 +20,7 @@ import {
   FormErrorMessage,
   CheckboxGroup,
   Stack,
+  Text,
 } from '@chakra-ui/react';
 import { FieldError, Merge, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from "zod";
@@ -136,11 +137,11 @@ function Form() {
 
         {activeStep === 2 && (
           <Center mb="20px">
-            <FormErrorMessage fontSize="3xl">Thanks for registering!</FormErrorMessage>
+            <Text fontSize="3xl">Thanks for registering!</Text>
           </Center>
         )}
         <Flex justifyContent="center" gap="20px">
-          {activeStep >= 1 && (
+          {activeStep == 1 && (
             <Button onClick={onPrevClick} type="button">Previous</Button>
           )}
           <Button onClick={onNextClick} type={activeStep === 2 ? "submit" : "button"}>{activeStep === 1 ? "Submit" : "Next"}</Button>
