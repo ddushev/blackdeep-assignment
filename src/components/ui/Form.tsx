@@ -5,7 +5,6 @@ import {
   FormLabel,
   Input,
   Checkbox,
-  Flex,
   Step,
   StepDescription,
   StepIcon,
@@ -18,7 +17,6 @@ import {
   useSteps,
   Center,
   FormErrorMessage,
-  CheckboxGroup,
   Stack,
   Text,
 } from '@chakra-ui/react';
@@ -40,7 +38,7 @@ function Form() {
     index: 0,
     count: steps.length,
   })
-  const { register, handleSubmit, trigger, watch, formState: { errors } } = useForm<FormFields>({
+  const { register, handleSubmit, trigger, formState: { errors } } = useForm<FormFields>({
     resolver: zodResolver(FormDataSchema),
   });
 
@@ -48,17 +46,12 @@ function Form() {
     console.log(data);
   };
 
-  const onPrevClick = () => {
-    if (activeStep >= 1) {
-      setActiveStep(activeStep - 1);
-    }
-  }
-
   type FieldName = keyof FormFields
 
   const onNextClick = async () => {
     const fields = steps[activeStep].fields;
     const areValid = await trigger(fields as FieldName[], { shouldFocus: true });
+
     if (!areValid) {
       return;
     }
@@ -116,14 +109,12 @@ function Form() {
             </FormControl>
             <FormControl mb='20px' isRequired isInvalid={!!errors.interests}>
               <FormLabel>Interests:</FormLabel>
-              <CheckboxGroup value={watch('interests')}>
-                <Stack direction={['column']}>
-                  <Checkbox {...register('interests')} id='sports' value='Sports'>Sports</Checkbox>
-                  <Checkbox {...register('interests')} id='music' value='Music'>Music</Checkbox>
-                  <Checkbox {...register('interests')} id='dancing' value='Dancing'>Dancing</Checkbox>
-                  <Checkbox {...register('interests')} id='games' value='Games'>Games</Checkbox>
-                </Stack>
-              </CheckboxGroup>
+              <Stack direction={['column']}>
+                <Checkbox {...register('interests')} id='sports' value='Sports'>Sports</Checkbox>
+                <Checkbox {...register('interests')} id='music' value='Music'>Music</Checkbox>
+                <Checkbox {...register('interests')} id='dancing' value='Dancing'>Dancing</Checkbox>
+                <Checkbox {...register('interests')} id='games' value='Games'>Games</Checkbox>
+              </Stack>
               <FormErrorMessage color='red' mt='10px'>{errors.interests?.message}</FormErrorMessage>
             </FormControl>
           </>
@@ -141,12 +132,9 @@ function Form() {
             <Text align='center' fontSize='3xl'>Thanks for registering!</Text>
           </Center>
         )}
-        <Flex justifyContent='center' gap='20px'>
-          {activeStep >= 1 && (
-            <Button onClick={onPrevClick} type='button'>Previous</Button>
-          )}
+        <Center>
           <Button onClick={onNextClick} type={activeStep === 2 ? 'submit' : 'button'}>{activeStep === 1 ? 'Submit' : 'Next'}</Button>
-        </Flex>
+        </Center>
 
       </form>
     </Box >
