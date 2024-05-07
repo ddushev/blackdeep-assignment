@@ -1,5 +1,5 @@
 import { Box, Flex } from '@chakra-ui/react';
-import Form from './components/ui/Form';
+import Form from './components/layout/Form';
 
 function App() {
 

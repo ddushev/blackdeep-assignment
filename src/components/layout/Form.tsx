@@ -5,25 +5,17 @@ import {
   FormLabel,
   Input,
   Checkbox,
-  Step,
-  StepDescription,
-  StepIcon,
-  StepIndicator,
-  StepNumber,
-  StepSeparator,
-  StepStatus,
-  StepTitle,
-  Stepper,
   useSteps,
   Center,
   FormErrorMessage,
   Stack,
   Text,
 } from '@chakra-ui/react';
+import FormDataSchema from '../../lib/schema';
 import { FieldError, Merge, SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import FormDataSchema from '../../lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import FromSteps from '../ui/FromSteps';
 
 type FormFields = z.infer<typeof FormDataSchema>
 
@@ -62,27 +54,7 @@ function Form() {
 
   return (
     <Box w={[null, 380, 480]}>
-      <Stepper display={['none', 'none', 'flex']} index={activeStep} mb='40px'>
-        {steps.map((step, index) => (
-          <Step key={index}>
-            <StepIndicator>
-              <StepStatus
-                complete={<StepIcon />}
-                incomplete={<StepNumber />}
-                active={<StepNumber />}
-              />
-            </StepIndicator>
-
-            <Box flexShrink='0'>
-              <StepTitle>{step.title}</StepTitle>
-              <StepDescription>{step.description}</StepDescription>
-            </Box>
-
-            <StepSeparator />
-          </Step>
-        ))}
-
-      </Stepper>
+      <FromSteps steps={steps} activeStep={activeStep} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {activeStep === 0 && (
