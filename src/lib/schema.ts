@@ -25,7 +25,7 @@ const FormDataSchema = z
     password: z.string().trim(),
     // .regex(
     //   passwordRegex,
-    //   "Password should contain at least 8 characters, including at least one uppercase letter, one digit, and one symbol"
+    //   'Password should contain at least 8 characters, including at least one uppercase letter, one digit, and one symbol'
     // ),
     confirmPassword: z.string().trim(),
     interests: z
