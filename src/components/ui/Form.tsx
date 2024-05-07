@@ -68,8 +68,8 @@ function Form() {
   }
 
   return (
-    <Box w="480px">
-      <Stepper index={activeStep} mb="40px">
+    <Box w={[null, null, 480]}>
+      <Stepper display={["none", "none", "flex"]} index={activeStep} mb="40px">
         {steps.map((step, index) => (
           <Step key={index}>
             <StepIndicator>
@@ -88,6 +88,7 @@ function Form() {
             <StepSeparator />
           </Step>
         ))}
+
       </Stepper>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -137,11 +138,11 @@ function Form() {
 
         {activeStep === 2 && (
           <Center mb="20px">
-            <Text fontSize="3xl">Thanks for registering!</Text>
+            <Text align="center" fontSize="3xl">Thanks for registering!</Text>
           </Center>
         )}
         <Flex justifyContent="center" gap="20px">
-          {activeStep == 1 && (
+          {activeStep >= 1 && (
             <Button onClick={onPrevClick} type="button">Previous</Button>
           )}
           <Button onClick={onNextClick} type={activeStep === 2 ? "submit" : "button"}>{activeStep === 1 ? "Submit" : "Next"}</Button>
