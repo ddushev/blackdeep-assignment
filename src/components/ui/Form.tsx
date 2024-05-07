@@ -61,7 +61,7 @@ function Form() {
   }
 
   return (
-    <Box w={[null, null, 480]}>
+    <Box w={[null, 380, 480]}>
       <Stepper display={['none', 'none', 'flex']} index={activeStep} mb='40px'>
         {steps.map((step, index) => (
           <Step key={index}>
