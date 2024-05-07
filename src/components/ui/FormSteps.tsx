@@ -22,7 +22,7 @@ interface IFormStepsProps {
   activeStep: number,
 }
 
-function FromSteps({ steps, activeStep }: IFormStepsProps) {
+function FormSteps({ steps, activeStep }: IFormStepsProps) {
   return (
     <Stepper display={['none', 'none', 'flex']} index={activeStep} mb='40px'>
       {steps.map((step, index) => (
@@ -48,4 +48,4 @@ function FromSteps({ steps, activeStep }: IFormStepsProps) {
   )
 }
 
-export default FromSteps
+export default FormSteps
