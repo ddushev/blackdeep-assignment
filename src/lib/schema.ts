@@ -34,7 +34,7 @@ const FormDataSchema = z
           "Please selected at least one and no more than 2 interests",
       })
       .refine(
-        (interests) => interests.length <= 2,
+        (interests) => interests.length >= 1 && interests.length <= 2,
         "Please selected at least one and no more than 2 interests"
       ),
     avatar: z
