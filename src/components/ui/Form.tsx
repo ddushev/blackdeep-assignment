@@ -28,9 +28,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 type FormFields = z.infer<typeof FormDataSchema>
 
 const steps = [
-  { title: 'First', description: 'Personal Info', fields: ['firstName', 'lastName', 'password', 'confirmPassword', 'interests'] },
-  { title: 'Second', description: 'Avatar', fields: ['avatar'] },
-  { title: 'Third', description: 'Congratulations' },
+  { title: 'Step 1', description: 'Personal Info', fields: ['firstName', 'lastName', 'password', 'confirmPassword', 'interests'] },
+  { title: 'Step 2', description: 'Avatar', fields: ['avatar'] },
+  { title: 'Step 3', description: 'Finish' },
 ]
 
 function Form() {
