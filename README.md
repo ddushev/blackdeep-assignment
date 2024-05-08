@@ -28,7 +28,7 @@ npm install
 npm run dev
 ```
 
-The application should be available on <http://localhost:5173/> if port :5173 is free.
+The application should be available on <http://localhost:5173/> if port `:5173` is free.
 
 ## Tech stack
 
