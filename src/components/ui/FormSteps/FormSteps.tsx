@@ -24,7 +24,7 @@ interface IFormStepsProps {
 
 function FormSteps({ steps, activeStep }: IFormStepsProps) {
   return (
-    <Stepper display={['none', 'none', 'flex']} index={activeStep} mb='40px'>
+    <Stepper data-testid="stepper" display={['none', 'none', 'flex']} index={activeStep} mb='40px'>
       {steps.map((step, index) => (
         <Step key={index}>
           <StepIndicator>
