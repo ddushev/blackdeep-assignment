@@ -38,3 +38,4 @@ The application should be available on <http://localhost:5173/> if port `:5173` 
 4. React Hook Form
 5. Chakra UI
 6. Zod
+7. Vitest
