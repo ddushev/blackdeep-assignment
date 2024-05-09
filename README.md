@@ -4,7 +4,7 @@ Simple React application utilizing React Hook Form and ChakraUI libraries for bu
 
 ## Deployment
 
-The app is deployed with Vercel and can be opend here <https://blackdeep-assignment.vercel.app/> 
+The app is deployed with Vercel and can be checked here -> <https://blackdeep-assignment.vercel.app/> 
 
 ## How to install and run locally
 
