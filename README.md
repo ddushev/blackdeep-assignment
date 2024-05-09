@@ -2,6 +2,10 @@
 
 Simple React application utilizing React Hook Form and ChakraUI libraries for building a 2-step form with Zod schema validation
 
+## Deployment
+
+The app is deployed with Vercel and can be opend here <https://blackdeep-assignment.vercel.app/> 
+
 ## How to install and run locally
 
 - Follow the steps and execute these commands in your terminal
