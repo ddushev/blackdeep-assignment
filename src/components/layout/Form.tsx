@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import FromSteps from '../ui/FormSteps/FormSteps';
 import FormFirstStep from '../ui/FormFirstStep/FormFirstStep';
 import FormSecondStep from '../ui/FormSecondStep/FormSecondStep';
+import { useState } from 'react';
 
 
 const steps = [
@@ -21,6 +22,7 @@ const steps = [
 ]
 
 function Form() {
+  const [formData, setFormData] = useState<FormFields | null>(null);
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length,
@@ -30,6 +32,8 @@ function Form() {
   });
 
   const onSubmit: SubmitHandler<FormFields> = (data) => {
+    setFormData(data);
+    //use the data further to make a API request
     console.log(data);
   };
 
@@ -57,7 +61,7 @@ function Form() {
 
         {activeStep === 2 && (
           <Center mb='20px'>
-            <Text align='center' fontSize='3xl'>Thanks for registering!</Text>
+            <Text align='center' fontSize='3xl'>{`Thanks for registering ${formData?.firstName}!`}</Text>
           </Center>
         )}
         <Center>
