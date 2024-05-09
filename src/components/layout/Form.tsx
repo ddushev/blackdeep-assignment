@@ -10,7 +10,7 @@ import FormFields from '../../lib/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FromSteps from '../ui/FormSteps/FormSteps';
-import FormFirstStep from '../ui/FormFirstStep';
+import FormFirstStep from '../ui/FormFirstStep/FormFirstStep';
 import FormSecondStep from '../ui/FormSecondStep';
 
 

@@ -1,5 +1,5 @@
 import { Checkbox, FormControl, FormErrorMessage, FormLabel, Input, Stack } from '@chakra-ui/react';
-import IFormStepProps from '../../lib/interfaces';
+import IFormStepProps from '../../../lib/interfaces';
 
 
 
@@ -17,13 +17,13 @@ function FormFirstStep({ register, errors }: IFormStepProps) {
         <FormErrorMessage color='red' mt='10px'>{errors.lastName?.message}</FormErrorMessage>
       </FormControl>
       <FormControl mb='20px' isRequired isInvalid={!!errors.password}>
-        <FormLabel>Password:</FormLabel>
-        <Input type='password' {...register('password')} />
+        <FormLabel htmlFor='password'>Password:</FormLabel>
+        <Input id='password' type='password' {...register('password')} />
         <FormErrorMessage color='red' mt='10px'>{errors.password?.message}</FormErrorMessage>
       </FormControl>
       <FormControl mb='20px' isRequired isInvalid={!!errors.confirmPassword}>
-        <FormLabel>Confirm Password:</FormLabel>
-        <Input type='password' {...register('confirmPassword')} />
+        <FormLabel htmlFor='confirmPassword'>Confirm Password:</FormLabel>
+        <Input id='confirmPassword' type='password' {...register('confirmPassword')} />
         <FormErrorMessage color='red' mt='10px'>{errors.confirmPassword?.message}</FormErrorMessage>
       </FormControl>
       <FormControl mb='20px' isRequired isInvalid={!!errors.interests}>
